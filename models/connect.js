@@ -11,7 +11,7 @@ const connect = async () => {
         })
     }
     else if (env == 'production') {
-        await equelize.connect()
+        await sequelize.connect()
     }
     else if (env == 'test') {
         await sequelize.sync({
