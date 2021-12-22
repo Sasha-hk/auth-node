@@ -1,0 +1,63 @@
+{
+    "tables": {
+        "tokens": {
+            "tableName": "tokens",
+            "schema": {
+                "id": {
+                    "autoIncrement": true,
+                    "primaryKey": true,
+                    "unique": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "refresh_token": {
+                    "field": "refresh_token",
+                    "seqType": "Sequelize.STRING"
+                },
+                "user_id": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "users",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "field": "user_id",
+                    "seqType": "Sequelize.INTEGER"
+                }
+            },
+            "indexes": []
+        },
+        "users": {
+            "tableName": "users",
+            "schema": {
+                "id": {
+                    "autoIncrement": true,
+                    "primaryKey": true,
+                    "unique": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "username": {
+                    "unique": true,
+                    "field": "username",
+                    "seqType": "Sequelize.STRING"
+                },
+                "email": {
+                    "unique": true,
+                    "field": "email",
+                    "seqType": "Sequelize.STRING"
+                },
+                "password": {
+                    "field": "password",
+                    "seqType": "Sequelize.STRING"
+                }
+            },
+            "indexes": []
+        }
+    },
+    "path": "/home/petryk/dev/Auth-node/migrations/_current.json",
+    "backupPath": "/home/petryk/dev/Auth-node/migrations/_current_bak.json",
+    "exists": false,
+    "revision": 1
+}
