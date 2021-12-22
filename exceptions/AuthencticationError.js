@@ -38,4 +38,4 @@ class AuthenticationError extends Error {
 
 }
 
-module.exports = AuthenticationErro
+module.exports = AuthenticationError
