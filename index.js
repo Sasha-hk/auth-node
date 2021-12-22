@@ -2,7 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
-const db = require('./models/connect')
+const connect = require('./models/connect')
 
 const PORT = process.env.PORT || 3000
 const app = express()
@@ -17,6 +17,9 @@ app.use(cors())
 
 const start = async () => {
     try {
+        await connect(() => {
+            console.log(`Connected to database`)
+        })
 
         app.listen(PORT, () => {
             console.log(`Server started...`)

@@ -1,9 +1,9 @@
-const sequelize = require('./index')
+const { sequelize } = require('./index')
 
 
 const env = process.env.NODE_ENV || 'development'
 
-const connect = async () => {
+const connect = async (callback) => {
     if (env == 'development') {
         await sequelize.sync({
             alter: true,
@@ -18,6 +18,8 @@ const connect = async () => {
             logging: false
         })
     }
+
+    callback()
 }
 
 module.exports = connect
