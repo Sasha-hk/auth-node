@@ -45,6 +45,10 @@ class AuthenticationError extends Error {
     static InvalidPassword() {
         return new AuthenticationError(400, 'Invalid password!')
     }
+
+    static UnAuthorized() {
+        return new AuthenticationError(401, 'Not authorized!')
+    }
 }
 
 module.exports = AuthenticationError

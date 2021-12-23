@@ -116,6 +116,19 @@ class UserService {
             throw AuthenticationError.UsernameExists()
         }
     }
+
+    async getUsers() {
+        try {
+            const users = await User.findAll({
+                raw: true
+            })
+
+            return users
+        }
+        catch (e) {
+            throw e
+        }
+    }
 }
 
 
