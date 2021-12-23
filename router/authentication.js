@@ -4,7 +4,7 @@ const AuthenticationController = require('../controllers/AuthenticationControlle
 const router = new Router()
 
 router.post('/sign-up', AuthenticationController.signUp)
-// router.post('/log-in', )
+router.post('/log-in', AuthenticationController.logIn)
 // router.post('/log-out', )
 
 // router.get('/refresh', )
