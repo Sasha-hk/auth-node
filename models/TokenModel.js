@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
                 unique: true,
             },
             refresh_token: {
-                type: DataTypes.STRING,
+                type: DataTypes.STRING(500),
             },
         },
         {
@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
             updatedAt: false,
         }
     )
- 
+
     Token.associate = function(models) {
         Token.belongsTo(models.User, {
             foreignKey: 'user_id'

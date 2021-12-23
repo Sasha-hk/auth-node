@@ -7,7 +7,7 @@ class AuthenticationError extends Error {
         super(message)
         this.status = status,
         this.message = message
-        this.error = error
+        this.error = errors
     }
 
     static EmailExists() {
@@ -16,6 +16,14 @@ class AuthenticationError extends Error {
     
     static EmailNotExists() {
         return new AuthenticationError(400, 'User with this email not exists!') 
+    }
+
+    static UsernameExists() {
+        return new AuthenticationError(400, 'User with this username alredy exists!')
+    }
+
+    static UsernameNotExists() {
+        return new AuthenticationError(400, 'User with this username not exists!')
     }
 
     static AccessError() {

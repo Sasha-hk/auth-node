@@ -12,7 +12,7 @@
                 },
                 "refresh_token": {
                     "field": "refresh_token",
-                    "seqType": "Sequelize.STRING"
+                    "seqType": "Sequelize.STRING(500)"
                 },
                 "user_id": {
                     "allowNull": true,

@@ -11,7 +11,7 @@ const Sequelize = require("sequelize");
 const info = {
   revision: 1,
   name: "base",
-  created: "2021-12-22T21:21:48.974Z",
+  created: "2021-12-23T11:00:30.334Z",
   comment: "",
 };
 
@@ -47,7 +47,7 @@ const migrationCommands = (transaction) => [
           primaryKey: true,
           autoIncrement: true,
         },
-        refresh_token: { type: Sequelize.STRING, field: "refresh_token" },
+        refresh_token: { type: Sequelize.STRING(500), field: "refresh_token" },
         user_id: {
           type: Sequelize.INTEGER,
           field: "user_id",

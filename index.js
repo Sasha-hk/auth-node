@@ -14,7 +14,7 @@ app.use(cookieParser())
 app.use(cors())
 
 // routes
-// app.use('/auth', authentication)
+app.use('/auth', authentication)
 
 
 const start = async () => {
