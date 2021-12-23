@@ -42,7 +42,7 @@ class TokenService {
     }
 
     async findRefreshToken(refresh_token) {
-        const found = await TokenModel.findOne({
+        const found = await Token.findOne({
             raw: true,
             where: {
                 refresh_token
@@ -62,15 +62,25 @@ class TokenService {
     }
 
     async validateAccessToken(accessToken) {
-        const validated = jwt.verify(accessToken)
+        try {
+            const validated = jwt.verify(accessToken, process.env.JWT_ACCESS_SECRET)
 
-        return validated
+            return validated
+        }
+        catch (e) {
+            return null
+        }
     }
 
     async validateRefreshToken(refreshToken) {
-        const validated = jwt.verify(refreshToken)
-
-        return validated
+        try {
+            const validated = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET)
+            
+            return validated
+        }
+        catch (e) {
+            return null
+        }
     }
 }
 
