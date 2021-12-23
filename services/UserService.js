@@ -53,12 +53,49 @@ class UserService {
         }
     }
     
-    async logOut() {
-        
+    async logOut(refreshToken) {
+        try {
+            await TokenService.removeToken(refreshToken)
+        }
+        catch (e) {
+            throw e
+        }
     }
     
-    async refresh() {
-        
+    async refresh(refreshToken) {
+        try {
+            if (!refreshToken) {
+                throw AuthenticationError.NoRefreshToken()
+            }
+
+            const oldToken = await TokenService.findRefreshToken(refreshToken)
+            const validatedToken = await TokenService.validateRefreshToken(refreshToken)
+
+            console.log(refreshToken)
+            console.log(oldToken)
+            console.log(validatedToken)
+
+            if (!oldToken.refreshToken || !validatedToken) {
+                console.log('bad')
+                throw AuthenticationError.BadRequest()
+            }
+
+            const user = await User.findOne({
+                raw: true,
+                where: {
+                    user_id: oldToken.id
+                }
+            })
+
+            const userData = new UserDto(user)
+            const tokens = await TokenService.generateTokens(userData)
+            await TokenService.saveRefreshToken(userData.id, tokens.refreshToken)
+
+            return {...userData, ...tokens}
+        }
+        catch (e) {
+            throw e
+        }
     }
     
     async validateRegistrationData(email, username) {

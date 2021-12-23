@@ -14,7 +14,7 @@ class AuthenticationController {
 
             res.json(userData)
         }
-        catch(e) {
+        catch (e) {
             const s = e.status || '500'
             res.status(s).json(e)
         }
@@ -40,11 +40,41 @@ class AuthenticationController {
     }
 
     async logOut(req, res, next) {
+        try {
+            const {refreshToken} = req.cookies 
 
+            await UserService.logOut(refreshToken)
+
+            res.clearCookie('refreshToken')
+            res.clearCookie('accessToken')
+
+            res.json('Ok')
+        }
+        catch (e) {
+            const s = e.status || '500'
+            console.log(e)
+            res.status(s).json(e)
+        }
     }
 
-    async refresh(req, res, next) {
+    async refresh(req, res, next) {        
+        try {
+            const {refreshToken} = req.cookies
 
+            const userData = await UserService.refresh(refreshToken)
+
+            // res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 1000, httpOnly: true})
+            // res.cookie('accessToken', userData.accessToken, {maxAge: 30 * 1000, httpOnly: false})
+
+            
+
+            res.json(userData)
+
+        }
+        catch (e) {
+            const s = e.status || '500'
+            res.status(s).json(e)
+        }
     }
 }
 
