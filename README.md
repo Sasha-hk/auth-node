@@ -41,3 +41,7 @@ Read more [`here`](./package.json#L22 "package.json")
     ```
 
 Read more [`here`](./package.json#L6 "package.json")
+
+## **API**
+
+Read about API endpoints [`here`](./router/README.md "API endpoints")
