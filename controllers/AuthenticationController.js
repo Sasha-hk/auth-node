@@ -66,6 +66,8 @@ class AuthenticationController {
             res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 1000, httpOnly: true})
             res.cookie('accessToken', userData.accessToken, {maxAge: 30 * 1000, httpOnly: false})
 
+            delete userData.refreshToken
+
             res.json(userData)
         }
         catch (e) {
