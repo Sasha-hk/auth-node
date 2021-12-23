@@ -12,6 +12,8 @@ Uses packages:
 - sequelize-mig
 - dotenv
 
+Read more [`here`](./package.json#L22 "package.json")
+
 ## **npm scripts**
 
 - run server in development mode
@@ -37,3 +39,5 @@ Uses packages:
     ```shell
     npm run migrate
     ```
+
+Read more [`here`](./package.json#L6 "package.json")
