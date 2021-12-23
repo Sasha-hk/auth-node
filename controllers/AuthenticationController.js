@@ -73,6 +73,18 @@ class AuthenticationController {
             res.status(s).json(e)
         }
     }
+
+    async getUsers(req, res, next) {
+        try {
+            const users = await UserService.getUsers()
+
+            res.json(users)
+        }
+        catch (e) {
+            const s = e.status || '500'
+            res.status(s).json(e)
+        }
+    }
 }
 
 

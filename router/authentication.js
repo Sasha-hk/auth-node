@@ -9,6 +9,6 @@ router.post('/log-in', AuthenticationController.logIn)
 router.delete('/log-out', AuthenticationController.logOut)
 
 router.get('/refresh', AuthenticationController.refresh)
-// router.get('/users', )
+router.get('/users', AuthenticationController.getUsers)
 
 module.exports = router
