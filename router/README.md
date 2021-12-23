@@ -6,7 +6,7 @@
 The authorization based on JWT([JSON Web Tokens](https://jwt.io/ "jwt.io"))
 
 To store ACCESS token I use cookies.
-To store REFRESH token I use httpOnly coolies.
+To store REFRESH token I use httpOnly cookies.
 
 Endpoints list:
 
