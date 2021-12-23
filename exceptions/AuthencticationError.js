@@ -41,6 +41,10 @@ class AuthenticationError extends Error {
     static BadRequest() {
         return new AuthenticationError(400, 'Bad request!')
     }
+
+    static InvalidPassword() {
+        return new AuthenticationError(400, 'Invalid password!')
+    }
         
 
 

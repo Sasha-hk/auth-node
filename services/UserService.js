@@ -29,8 +29,28 @@ class UserService {
         }
     }
     
-    async logIn() {
-        
+    async logIn(email, password) {
+        try {
+            const candedat = await User.findOne({
+                raw: true,
+                where: {
+                    email
+                }
+            })
+    
+            if (!bcrypt.compareSync(password, candedat.password)) {
+                throw AuthenticationError.InvalidPassword()
+            }
+    
+            const userData = new UserDto(candedat)
+            const tokens = await TokenService.generateTokens({...userData})
+            await TokenService.saveRefreshToken(userData.id, tokens.refreshToken)
+    
+            return {...userData, ...tokens}
+        }
+        catch(e) {
+            throw e
+        }
     }
     
     async logOut() {
