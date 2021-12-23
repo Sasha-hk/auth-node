@@ -32,7 +32,7 @@ class TokenService {
             )
             return updateOldToken.dataValues
         }
-
+        
         const newRefreshToken = await Token.create({
             user_id,
             refresh_token
@@ -53,7 +53,7 @@ class TokenService {
     }
     
     async removeToken(refresh_token) {
-        TokenModel.destroy({
+        Token.destroy({
             raw: true,
             where: {
                 refresh_token

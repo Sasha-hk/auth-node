@@ -53,8 +53,13 @@ class UserService {
         }
     }
     
-    async logOut() {
-        
+    async logOut(refreshToken) {
+        try {
+            await TokenService.removeToken(refreshToken)
+        }
+        catch (e) {
+            throw e
+        }
     }
     
     async refresh() {

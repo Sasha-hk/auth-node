@@ -14,7 +14,7 @@ class AuthenticationController {
 
             res.json(userData)
         }
-        catch(e) {
+        catch (e) {
             const s = e.status || '500'
             res.status(s).json(e)
         }
@@ -40,7 +40,21 @@ class AuthenticationController {
     }
 
     async logOut(req, res, next) {
+        try {
+            const {refreshToken} = req.cookies 
 
+            await UserService.logOut(refreshToken)
+
+            res.clearCookie('refreshToken')
+            res.clearCookie('accessToken')
+
+            res.json('Ok')
+        }
+        catch (e) {
+            const s = e.status || '500'
+            console.log(e)
+            res.status(s).json(e)
+        }
     }
 
     async refresh(req, res, next) {
