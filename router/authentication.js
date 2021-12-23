@@ -1,5 +1,6 @@
 const Router = require('express')
 const AuthenticationController = require('../controllers/AuthenticationController')
+const {checkAuth} = require('../middlewares/AuthMiddleware')
 
 const router = new Router()
 
@@ -9,6 +10,10 @@ router.post('/log-in', AuthenticationController.logIn)
 router.delete('/log-out', AuthenticationController.logOut)
 
 router.get('/refresh', AuthenticationController.refresh)
-router.get('/users', AuthenticationController.getUsers)
+router.get(
+    '/users', 
+    checkAuth,
+    AuthenticationController.getUsers
+)
 
 module.exports = router
