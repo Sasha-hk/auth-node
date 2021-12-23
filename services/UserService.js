@@ -71,24 +71,19 @@ class UserService {
             const oldToken = await TokenService.findRefreshToken(refreshToken)
             const validatedToken = await TokenService.validateRefreshToken(refreshToken)
 
-            console.log(refreshToken)
-            console.log(oldToken)
-            console.log(validatedToken)
-
-            if (!oldToken.refreshToken || !validatedToken) {
-                console.log('bad')
+            if (!oldToken.refresh_token || !validatedToken) {
                 throw AuthenticationError.BadRequest()
             }
-
+            
             const user = await User.findOne({
                 raw: true,
                 where: {
-                    user_id: oldToken.id
+                    id: oldToken.user_id
                 }
             })
 
             const userData = new UserDto(user)
-            const tokens = await TokenService.generateTokens(userData)
+            const tokens = await TokenService.generateTokens({...userData})
             await TokenService.saveRefreshToken(userData.id, tokens.refreshToken)
 
             return {...userData, ...tokens}

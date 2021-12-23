@@ -63,13 +63,10 @@ class AuthenticationController {
 
             const userData = await UserService.refresh(refreshToken)
 
-            // res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 1000, httpOnly: true})
-            // res.cookie('accessToken', userData.accessToken, {maxAge: 30 * 1000, httpOnly: false})
-
-            
+            res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 1000, httpOnly: true})
+            res.cookie('accessToken', userData.accessToken, {maxAge: 30 * 1000, httpOnly: false})
 
             res.json(userData)
-
         }
         catch (e) {
             const s = e.status || '500'
