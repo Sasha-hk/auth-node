@@ -41,7 +41,12 @@ class AuthenticationController {
 
     async logOut(req, res, next) {
         try {
-            const {refreshToken} = req.cookies 
+            const {refreshToken} = req.cookies
+
+            if (req.user) {
+                req.logout()
+                return res.sendStatus(200)
+            }
 
             await UserService.logOut(refreshToken)
 
@@ -52,7 +57,6 @@ class AuthenticationController {
         }
         catch (e) {
             const s = e.status || '500'
-            console.log(e)
             res.status(s).json(e)
         }
     }

@@ -2,9 +2,12 @@ require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
+const session = require('express-session')
 const passport = require('passport')
 const connect = require('./models/connect')
 const authentication = require('./router/authentication')
+
+const {checkAuth, googleAuth} = require('./middlewares/AuthMiddleware')
 
 require('./oauth')
 
@@ -14,6 +17,9 @@ const app = express()
 
 
 // middlewares
+app.use(session({ secret: 'cats' }))
+app.use(passport.initialize())
+app.use(passport.session())
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors())
@@ -24,6 +30,13 @@ app.use('/auth', authentication)
 app.get('/', (req, res, next) => {
     res.send('<a href="/auth/google">Log-in with Google</a>')
 })
+
+app.get('/protected',
+    googleAuth,
+    (req, res, next) => {
+        res.send('Authorized!')
+    }
+)
 
 
 const start = async () => {

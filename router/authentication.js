@@ -9,11 +9,11 @@ const router = new Router()
 router.post('/sign-up', AuthenticationController.signUp)
 router.post('/log-in', AuthenticationController.logIn)
 
-router.delete('/log-out', AuthenticationController.logOut)
+router.get('/log-out', AuthenticationController.logOut)
 
 router.get('/refresh', AuthenticationController.refresh)
 router.get(
-    '/users', 
+    '/users',
     checkAuth,
     AuthenticationController.getUsers
 )
@@ -26,6 +26,15 @@ router.get('/google',
             'email',
             'profile'
         ]
+    })
+)
+
+
+
+router.get('/google/callback', 
+    passport.authenticate('google', {
+        successRedirect: '/protected',
+        failureRedirect: '/'
     })
 )
 
