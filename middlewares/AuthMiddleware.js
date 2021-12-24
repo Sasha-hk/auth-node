@@ -8,9 +8,9 @@ async function checkAuth(req, res, next) {
 
         const validatedToken = await TokenService.validateAccessToken(accessToken)
 
-        if (!validatedToken) {
-            next(AuthenticationError.UnAuthorized())
-        }
+        // if (!validatedToken) {
+        //     next(AuthenticationError.UnAuthorized())
+        // }
         
         next()
     }
@@ -19,6 +19,11 @@ async function checkAuth(req, res, next) {
     }
 }
 
+function googleAuth(req, res, next) {
+    req.user ? next() : res.sendStatus(401)
+}
+
 module.exports = {
-    checkAuth
+    checkAuth,
+    googleAuth
 }
