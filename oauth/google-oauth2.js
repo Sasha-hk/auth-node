@@ -13,11 +13,6 @@ module.exports = (passport) => {
             passReqToCallback: true
         },
         async function(req, accessToken, refreshToken, profile, done) {
-            // Update "user" table later for this scenario
-            // User.findOrCreate({ googleId: profile.id }, function (err, user) {
-            //   return done(err, user)
-            // })
-
             const pictureUrl = profile._json.picture || null
             const email = profile._json.email || null
             const given_name = profile._json.given_name || null
@@ -33,7 +28,7 @@ module.exports = (passport) => {
             })
             
             if (existingUser) {
-                const updateUser = User.update(
+                const updateUser = await User.update(
                     {
                         email,
                         picture,
@@ -49,7 +44,7 @@ module.exports = (passport) => {
                 )
             }
             else {
-                const newUser = User.create({
+                const newUser = await User.create({
                     email,
                     picture,
                     given_name,
