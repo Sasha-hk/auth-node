@@ -10,13 +10,21 @@ module.exports = (sequelize, DataTypes) => {
             },
             username: {
                 type: DataTypes.STRING,
-                unique: true,
             },
             email: {
                 type: DataTypes.STRING,
                 unique: true,
             },
             password: {
+                type: DataTypes.STRING,
+            },
+            picture: {
+                type: DataTypes.BLOB('long') ,
+            },
+            given_name: {
+                type: DataTypes.STRING(100),
+            },
+            family_name: {
                 type: DataTypes.STRING,
             }
         },

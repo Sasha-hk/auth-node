@@ -10,8 +10,8 @@ const Sequelize = require("sequelize");
 
 const info = {
   revision: 1,
-  name: "base",
-  created: "2021-12-23T11:00:30.334Z",
+  name: "initial",
+  created: "2021-12-25T18:59:04.989Z",
   comment: "",
 };
 
@@ -28,9 +28,12 @@ const migrationCommands = (transaction) => [
           primaryKey: true,
           autoIncrement: true,
         },
-        username: { type: Sequelize.STRING, field: "username", unique: true },
+        username: { type: Sequelize.STRING, field: "username" },
         email: { type: Sequelize.STRING, field: "email", unique: true },
         password: { type: Sequelize.STRING, field: "password" },
+        picture: { type: Sequelize.BLOB, field: "picture" },
+        given_name: { type: Sequelize.STRING(100), field: "given_name" },
+        family_name: { type: Sequelize.STRING, field: "family_name" },
       },
       { transaction },
     ],
