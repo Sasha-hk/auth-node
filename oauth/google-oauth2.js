@@ -1,4 +1,7 @@
+const fs = require('fs')
 const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy
+const {User} = require('../models')
+const request = require('request')
 
 
 module.exports = (passport) => {
@@ -9,11 +12,53 @@ module.exports = (passport) => {
             callbackURL: `http://${process.env.DOMAIN}:3000/auth/google/callback`,
             passReqToCallback: true
         },
-        function(request, accessToken, refreshToken, profile, done) {
+        async function(req, accessToken, refreshToken, profile, done) {
             // Update "user" table later for this scenario
             // User.findOrCreate({ googleId: profile.id }, function (err, user) {
             //   return done(err, user)
             // })
+
+            const pictureUrl = profile._json.picture || null
+            const email = profile._json.email || null
+            const given_name = profile._json.given_name || null
+            const family_name = profile._json.family_name || null
+
+            const picture = pictureUrl ? request(pictureUrl) : null
+
+            const existingUser = await User.findOne({
+                raw: true,
+                where: {
+                    email
+                },
+            })
+            
+            if (existingUser) {
+                const updateUser = User.update(
+                    {
+                        email,
+                        picture,
+                        given_name,
+                        family_name,
+                    },
+                    {
+                        raw: true,
+                        where: {
+                            email
+                        }
+                    }
+                )
+            }
+            else {
+                const newUser = User.create({
+                    email,
+                    picture,
+                    given_name,
+                    family_name 
+                })
+            }
+
+            
+
             return done(null, profile)
         }
     ))

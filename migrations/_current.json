@@ -39,7 +39,6 @@
                     "seqType": "Sequelize.INTEGER"
                 },
                 "username": {
-                    "unique": true,
                     "field": "username",
                     "seqType": "Sequelize.STRING"
                 },
@@ -50,6 +49,18 @@
                 },
                 "password": {
                     "field": "password",
+                    "seqType": "Sequelize.STRING"
+                },
+                "picture": {
+                    "field": "picture",
+                    "seqType": "Sequelize.BLOB"
+                },
+                "given_name": {
+                    "field": "given_name",
+                    "seqType": "Sequelize.STRING(100)"
+                },
+                "family_name": {
+                    "field": "family_name",
                     "seqType": "Sequelize.STRING"
                 }
             },

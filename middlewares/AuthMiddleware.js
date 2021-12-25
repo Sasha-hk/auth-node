@@ -8,14 +8,15 @@ async function checkAuth(req, res, next) {
 
         const validatedToken = await TokenService.validateAccessToken(accessToken)
 
-        // if (!validatedToken) {
-        //     next(AuthenticationError.UnAuthorized())
+        // if (!validatedToken && !req.user) {
+        //     throw AuthenticationError.UnAuthorized()
         // }
         
         next()
     }
     catch (e) {
-        return next(e)
+        const s = e.status || '500'
+        res.status(s).json(e)
     }
 }
 

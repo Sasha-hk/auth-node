@@ -17,7 +17,12 @@ const app = express()
 
 
 // middlewares
-app.use(session({ secret: 'cats' }))
+app.use(session({ 
+    secret: 'cats',
+    resave: false,
+    saveUninitialized: true,
+    secret: 'SECRET' 
+}))
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(express.json())
