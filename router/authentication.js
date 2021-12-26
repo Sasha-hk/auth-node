@@ -29,15 +29,30 @@ router.get('/google',
         ]
     })
 )
-
-
-
 router.get('/google/callback', 
     passport.authenticate('google', {
         successRedirect: '/protected',
         failureRedirect: '/'
     })
 )
+
+// apple auth
+router.get("/apple/login", passport.authenticate('apple'));
+router.post("/apple/auth", function(req, res, next) {
+    passport.authenticate('apple', function(err, user, info) {
+        if (err) {
+            if (err == "AuthorizationError") {
+                res.send("Oops! Looks like you didn't allow the app to proceed. Please sign in again! <br /> \
+                <a href=\"/login\">Sign in with Apple</a>");
+            } else if (err == "TokenError") {
+                res.send("Oops! Couldn't get a valid token from Apple's servers! <br /> \
+                <a href=\"/login\">Sign in with Apple</a>");
+            }
+        } else {
+            res.json(user);
+        }
+    })(req, res, next);
+});
 
 
 module.exports = router
