@@ -33,7 +33,7 @@ app.use(cors())
 app.use('/auth', authentication)
 
 app.get('/', (req, res, next) => {
-    res.send('<a href="/auth/google">Log-in with Google</a>')
+    res.send('<a href="/auth/google">Log-in with Google</a> <a href="/auth/apple/login">Log-in with apple</a>')
 })
 
 app.get('/protected',
