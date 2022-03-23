@@ -1,4 +1,4 @@
-# **Authentication example**
+# 🧪 Authentication example
 
 Uses packages:
 
